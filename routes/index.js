@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const mollie = require("@mollie/api-client")({
-  apiKey: "test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+  apiKey: process.env.MOLLIE_API_KEY
 });
 
 /* GET home page. */
@@ -12,15 +12,15 @@ router.post("/", (req, res) => {
   mollie.payments
     .create({
       amount: {
-        value: "10.00", // params value
+        value: req.body.price,
         currency: "EUR"
       },
-      description: "Pampus Lollebroek",
-      redirectUrl: "https://geef.pampus-lollebroek.nl/thx",
-      webhookUrl: "https://geef.pampus-lollebroek.nl/webhook"
+      description: "Gift Optocht Pampus Lollebroek",
+      redirectUrl: process.env.DOMAIN + "/thx",
+      webhookUrl: process.env.DOMAIN + "/webhook"
     })
     .then(payment => {
-      res.send(payment.getPaymentUrl());
+      res.redirect(payment.getPaymentUrl());
     })
     .catch(err => {
       // Handle the error
