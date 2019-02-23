@@ -6,7 +6,7 @@ const mollie = require("@mollie/api-client")({
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
-  res.render("index", { title: "Hello" });
+  res.render("index");
 });
 router.post("/", (req, res) => {
   mollie.payments
@@ -16,15 +16,26 @@ router.post("/", (req, res) => {
         currency: "EUR"
       },
       description: "Gift Optocht Pampus Lollebroek",
-      redirectUrl: process.env.DOMAIN + "/thx",
-      webhookUrl: process.env.DOMAIN + "/webhook"
+      redirectUrl: process.env.DOMAIN + "/thanks",
+      webhookUrl: "https://geef.pampus-lollebroek.nl/webhook"
     })
     .then(payment => {
       res.redirect(payment.getPaymentUrl());
     })
     .catch(err => {
-      // Handle the error
+      res.send(err);
     });
+});
+router.get("/thanks", (req, res, next) => {
+  // res.render("index", { title: "Hello" });
+  // res.send([req.body, req.params]);
+  res.render("thanks", {
+    title: "Bedankt!",
+    number: Math.floor(Math.random() * 5) + 1
+  });
 });
 
 module.exports = router;
+
+// set session in cookie
+// do pingback to Mollie

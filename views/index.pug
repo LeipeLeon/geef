@@ -1,8 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Geen cash geld in de broek?
+  h2
+    | Accepteer dan een
+    | <br/>
+    | Betaal Verzoek!
+
+  p Kies een bedrag:
   form(method='POST' action='/')
-    input(type='submit' name='price' value='10')
-    input(type='submit' name='price' value='5')
+    button(name='price' value='2.50' class="btn") € 2,50
+    button(name='price' value='5.00' class="btn active") € 5,00
+    button(name='price' value='11.11' class="btn") 3x Alaaf: € 11,11
