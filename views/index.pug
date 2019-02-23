@@ -12,3 +12,13 @@ block content
     button(name='price' value='2.50' class="btn") € 2,50
     button(name='price' value='5.00' class="btn active") € 5,00
     button(name='price' value='11.11' class="btn") 3x Alaaf: € 11,11
+
+  script.
+    var x = document.getElementsByClassName("btn");
+    for (var i = 0; i < x.length; i++) {
+      x[i].addEventListener("click", clickHandler);
+    }
+    function clickHandler(e) {
+      e.target.innerHTML = '<div id="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+      var x = document.getElementsByClassName("btn")
+    }
