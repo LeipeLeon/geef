@@ -30,7 +30,7 @@ router.get("/thanks", (req, res, next) => {
   // res.render("index", { title: "Hello" });
   // res.send([req.body, req.params]);
   res.render("thanks", {
-    title: "Bedankt voor je bijdrage!",
+    title: "Dank voor uw bijdrage!",
     number: Math.floor(Math.random() * 5) + 1
   });
 });
