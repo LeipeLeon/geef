@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
       },
       description: "Gift Optocht Pampus Lollebroek",
       redirectUrl: process.env.DOMAIN + "/thanks",
-      webhookUrl: "https://geef.pampus-lollebroek.nl/webhook"
+      webhookUrl:  process.env.DOMAIN + "/webhook"
     })
     .then(payment => {
       res.redirect(payment.getPaymentUrl());
