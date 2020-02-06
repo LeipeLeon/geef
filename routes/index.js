@@ -1,8 +1,7 @@
 var express = require("express");
 var router = express.Router();
-const mollie = require("@mollie/api-client")({
-  apiKey: process.env.MOLLIE_API_KEY
-});
+const { createMollieClient } = require("@mollie/api-client");
+const mollie = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY });
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
