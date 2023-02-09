@@ -1,39 +1,15 @@
 var express = require("express");
 var router = express.Router();
-const { createMollieClient } = require("@mollie/api-client");
-const mollie = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY });
+const redirectTo = process.env.REDIRECT_TO
 
 /* GET home page. */
-router.get("/", (req, res, next) => {
-  res.render("index");
+router.get("/*", (_req, res, _next) => {
+  res.redirect(302, redirectTo)
 });
-router.post("/", (req, res) => {
-  mollie.payments
-    .create({
-      amount: {
-        value: req.body.price,
-        currency: "EUR"
-      },
-      description: "Gift Optocht Pampus Lollebroek",
-      redirectUrl: process.env.DOMAIN + "/thanks"
-    })
-    .then(payment => {
-      res.redirect(payment.getPaymentUrl());
-    })
-    .catch(err => {
-      res.send(err);
-    });
-});
-router.get("/thanks", (req, res, next) => {
-  // res.render("index", { title: "Hello" });
-  // res.send([req.body, req.params]);
-  res.render("thanks", {
-    title: "Dank voor uw bijdrage!",
-    number: Math.floor(Math.random() * 5) + 1
-  });
+
+/* POST home page. */
+router.post("/*", (_req, res, _next) => {
+  res.redirect(302, redirectTo)
 });
 
 module.exports = router;
-
-// set session in cookie
-// do pingback to Mollie
